@@ -3,6 +3,13 @@
 This repository contains a flake-based Home Manager configuration for the
 `secured-macbook` host.
 
+
+> If you want to version control your own changes, feel free to fork this repository.
+
+> You do not need to be a nix expert to be able to make your changes.
+
+> Happy hacking!
+
 ## Directory Structure
 
 ```text
@@ -158,6 +165,13 @@ included. For example, `defaultShell = "fish";` requires `hm.fish`.
 
 ## Apply Configuration Changes
 
+If Home Manager is not available on your path yet, you can run it through the
+flake input:
+
+```sh
+nix run home-manager -- switch --flake .#secured-macbook
+```
+
 After editing modules or host settings, apply the configuration with:
 
 ```sh
@@ -166,14 +180,13 @@ home-manager switch --flake .#secured-macbook
 
 Run this command from the repository root.
 
-If Home Manager is not available on your path yet, you can run it through the
-flake input:
-
-```sh
-nix run github:nix-community/home-manager -- switch --flake .#secured-macbook
-```
-
 ## Common Workflows
+
+Change host identity or defaults:
+
+1. Edit the inline `myHost = { ... };` block in
+   `modules/hosts/secured-macbook/default.nix`.
+2. Run `home-manager switch --flake .#secured-macbook`.
 
 Change a tool setting:
 
@@ -188,8 +201,3 @@ Add a host-specific package:
 3. Confirm `hm."secured-macbook-packages"` is listed in the host module list.
 4. Run `home-manager switch --flake .#secured-macbook`.
 
-Change host identity or defaults:
-
-1. Edit the inline `myHost = { ... };` block in
-   `modules/hosts/secured-macbook/default.nix`.
-2. Run `home-manager switch --flake .#secured-macbook`.
